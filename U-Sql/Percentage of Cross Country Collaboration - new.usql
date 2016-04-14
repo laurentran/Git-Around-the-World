@@ -1,0 +1,67 @@
+@users = SELECT * FROM GHTorrent.dbo.users;
+@project_members = SELECT * FROM GHTorrent.dbo.project_members;
+
+@usersProjectMembers = 
+	SELECT p.user_id, p.repo_id, u.country_code 
+	FROM @users AS u JOIN @project_members AS p  
+				ON u.id == p.user_id;
+		                   
+@usersProjectMembers = 
+	SELECT * FROM @usersProjectMembers WHERE country_code != "";
+	
+@TotalProjectsCompare = 
+	SELECT country_code, COUNT(DISTINCT repo_id) AS TotalProjectsCountCompare
+	FROM @usersProjectMembers 
+	GROUP BY country_code;
+	
+OUTPUT @TotalProjectsCompare
+    TO @"/Samples/Output/Shiva/TotalProjectsCompare.tsv"
+    USING Outputters.Tsv();
+
+@collaboration =
+	SELECT DISTINCT u1.repo_id, u1.country_code AS Country1, u2.country_code AS Country2
+	FROM @usersProjectMembers AS u1 JOIN @usersProjectMembers AS u2
+				ON u1.repo_id == u2.repo_id
+				WHERE u1.country_code.CompareTo(u2.country_code) != 0;
+				
+@total =
+	SELECT DISTINCT u1.repo_id, u1.country_code AS Country1, u2.country_code AS Country2
+	FROM @usersProjectMembers AS u1 JOIN @usersProjectMembers AS u2
+				ON u1.repo_id == u2.repo_id;			
+				
+@collaborationCount =
+	SELECT Country1, Country2, COUNT(DISTINCT repo_id) AS Count
+	FROM @collaboration
+	GROUP BY Country1, Country2;
+	
+@totalCount =
+	SELECT Country1, Country2, COUNT(DISTINCT repo_id) AS Count
+	FROM @total
+	GROUP BY Country1, Country2;
+	
+@CrossCountryProjects = 
+	SELECT Country1, SUM(Count) AS CrossCountryProjectsCount
+	FROM @collaborationCount
+	GROUP BY Country1;
+	
+@TotalProjects = 
+	SELECT Country1, SUM(Count) AS TotalProjectsCount
+	FROM @totalCount
+	GROUP BY Country1;
+
+OUTPUT @CrossCountryProjects
+    TO @"/Samples/Output/Shiva/CrossCountryProjects.tsv"
+    USING Outputters.Tsv();
+	
+OUTPUT @TotalProjects
+    TO @"/Samples/Output/Shiva/TotalProjects.tsv"
+    USING Outputters.Tsv();
+	
+@percentageCollaboration = 
+	SELECT tp.Country1 AS Country, cp.CrossCountryProjectsCount, tp.TotalProjectsCount, ((cp.CrossCountryProjectsCount*100)/tp.TotalProjectsCount) AS CrossCountryPercentage
+	FROM @TotalProjects AS tp JOIN @CrossCountryProjects AS cp
+				ON tp.Country1 == cp.Country1;				
+
+OUTPUT @percentageCollaboration
+    TO @"/Samples/Output/Shiva/PercentageCollaboration.tsv" ORDER BY CrossCountryPercentage DESC
+    USING Outputters.Tsv();

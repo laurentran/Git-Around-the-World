@@ -1,0 +1,27 @@
+@users = SELECT * FROM GHTorrent.dbo.users;
+@project_members = SELECT * FROM GHTorrent.dbo.project_members;
+
+@usersProjectMembers = 
+	SELECT p.user_id, p.repo_id, u.country_code 
+	FROM @users AS u JOIN @project_members AS p  
+				ON u.id == p.user_id;
+				
+                      
+@usersProjectMembers = 
+	SELECT * FROM @usersProjectMembers WHERE country_code != "";
+
+@countryLink =
+	SELECT DISTINCT u1.repo_id, u1.country_code AS Country1, u2.country_code AS Country2
+	FROM @usersProjectMembers AS u1 JOIN @usersProjectMembers AS u2
+				ON u1.repo_id == u2.repo_id
+				WHERE u1.country_code.CompareTo(u2.country_code) == 1;
+				
+@countryLinkCount =
+	SELECT Country1, Country2, COUNT(repo_id) AS Count
+	FROM @countryLink
+	GROUP BY Country1, Country2;
+	
+
+OUTPUT @countryLinkCount
+    TO @"/Samples/Output/Shiva/countryLinkCount.tsv"
+    USING Outputters.Tsv();
