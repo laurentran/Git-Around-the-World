@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<body>
+   
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://d3js.org/topojson.v1.min.js"></script>
+  <script src="datamaps.world.js"></script>
+  <h1 style="color:#00CCCC; font-family: verdana; text-align: center;">Git Around the World</h1>
+  <div id="container1" style="width: 1400px; height: 950px; position: relative;"></div>
+      
+     <script>
+       //basic map config with custom fills, arcs, and highlights
+        var map = new Datamap({
+        scope: 'world',
+        fills: {
+            defaultFill: '#ABDDA4' //the keys in this object map to the "fillKey" of [data] or [bubbles]
+        },
+        element: document.getElementById('container1'),
+        done: function(datamap) {
+            datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
+              //only draw arcs from country clicked on. 
+               if(geography.properties.name == "United States of America"){
+                    map.arc([
+                        {
+                            origin: 'USA',
+                            destination: 'GBR',
+                            options: {
+                                arcSharpness: 3,
+                                strokeWidth: 6,
+                                strokeColor: 'rgba(232, 100, 0, 1.0)'
+                            }
+                        },
+                        {
+                            origin: 'USA',
+                            destination: 'DEU',
+                            options: {
+                                arcSharpness: 3,
+                                strokeWidth: 6,
+                                strokeColor: 'rgba(232, 100, 0, 1.0)'
+                            }
+                        },
+                        {
+                            origin: 'USA',
+                            destination: 'FRA',
+                            options: {
+                                strokeWidth: 4,
+                                arcSharpness: 3,
+                                strokeColor: 'rgba(232, 100, 0, 1.0)'
+                            }
+                        },
+                         {
+                            origin: 'USA',
+                            destination: 'CAN',
+                            options: {
+                                strokeWidth: 4,
+                                arcSharpness: 3,
+                                strokeColor: 'rgba(232, 100, 0, 1.0)'
+                            }
+                        },
+                         {
+                            origin: 'USA',
+                            destination: 'NLD',
+                            options: {
+                                strokeWidth: 2,
+                                arcSharpness: 3,
+                                strokeColor: 'rgba(232, 100, 0, 1.0)'
+                            }
+                        }
+                          ], {
+                            animationSpeed: 2000,
+                            popupOnHover: true
+                        });
+               }
+               else if(geography.properties.name == "Russia"){
+                   map.arc([
+                        {
+                            origin: 'RUS',
+                            destination: 'USA',
+                            options: {
+                                strokeWidth: 10,
+                                strokeColor: 'rgba(209, 34, 34, 1.0)'
+                            }
+                        },
+                           {
+                            origin: 'RUS',
+                            destination: 'DEU',
+                            options: {
+                                strokeWidth: 2,
+                                strokeColor: 'rgba(209, 34, 34, 1.0)'
+                            }
+                        },
+                           {
+                            origin: 'RUS',
+                            destination: 'FRA',
+                            options: {
+                                strokeWidth: 2,
+                                strokeColor: 'rgba(209, 34, 34, 1.0)'
+                            }
+                        },
+                           {
+                            origin: 'RUS',
+                            destination: 'JPN',
+                            options: {
+                                strokeWidth: 2,
+                                strokeColor: 'rgba(209, 34, 34, 1.0)'
+                            }
+                        },
+                           {
+                            origin: 'RUS',
+                            destination: 'GBR',
+                            options: {
+                                strokeWidth: 2,
+                                strokeColor: 'rgba(209, 34, 34, 1.0)'
+                            }
+                        }
+                        ], {
+                            animationSpeed: 2000,
+                            popupOnHover: true
+                        });                        
+               }
+               else if(geography.properties.name == "China"){
+                   map.arc([
+                        {
+                            origin: 'CHN',
+                            destination: 'USA',
+                            options: {
+                                strokeWidth: 12,
+                                strokeColor: 'rgba(220, 220, 28, 1.0)'
+                            }
+                        },
+                         {
+                            origin: 'CHN',
+                            destination: 'DEU',
+                            options: {
+                                strokeWidth: 4,
+                                strokeColor: 'rgba(220, 220, 28, 1.0)'
+                            }
+                        },
+                         {
+                            origin: 'CHN',
+                            destination: 'FRA',
+                            options: {
+                                strokeWidth: 2,
+                                strokeColor: 'rgba(220, 220, 28, 1.0)'
+                            }
+                        },
+                         {
+                            origin: 'CHN',
+                            destination: 'GBR',
+                            options: {
+                                strokeWidth: 2,
+                                strokeColor: 'rgba(220, 220, 28, 1.0)'
+                            }
+                        },
+                         {
+                            origin: 'CHN',
+                            destination: 'NLD',
+                            options: {
+                                strokeWidth: 2,
+                                strokeColor: 'rgba(220, 220, 28, 1.0)'
+                            }
+                        }
+                        ], {
+                            animationSpeed: 2000,
+                            popupOnHover: true
+                        });                        
+               }
+               else if(geography.properties.name == "Germany"){
+                   map.arc([
+                        {
+                            origin: 'DEU',
+                            destination: 'USA',
+                            options: {
+                                strokeWidth: 10,
+                                strokeColor: 'rgba(34, 34, 209, 1.0)'
+                            }
+                        },
+                          {
+                            origin: 'DEU',
+                            destination: 'NLD',
+                            options: {
+                                strokeWidth: 2,
+                                strokeColor: 'rgba(34, 34, 209, 1.0)'
+                            }
+                        },
+                          {
+                            origin: 'DEU',
+                            destination: 'FRA',
+                            options: {
+                                strokeWidth: 2,
+                                strokeColor: 'rgba(34, 34, 209, 1.0)'
+                            }
+                        },
+                          {
+                            origin: 'DEU',
+                            destination: 'GBR',
+                            options: {
+                                strokeWidth: 2,
+                                strokeColor: 'rgba(34, 34, 209, 1.0)'
+                            }
+                        },
+                          {
+                            origin: 'DEU',
+                            destination: 'BRA',
+                            options: {
+                                strokeWidth: 2,
+                                strokeColor: 'rgba(34, 34, 209, 1.0)'
+                            }
+                        }
+                       
+                        ], {
+                            animationSpeed: 2000,
+                            popupOnHover: true
+                        });                        
+               }
+               //show all arcs if you click on australia
+               else if(geography.properties.name == "Australia"){
+                   map.arc([
+                        {
+                            origin: 'USA',
+                            destination: 'GBR',
+                            options: {
+                                arcSharpness: 3,
+                                strokeWidth: 6,
+                                strokeColor: 'rgba(232, 100, 0, 1.0)'
+                            }
+                        },
+                        {
+                            origin: 'USA',
+                            destination: 'DEU',
+                            options: {
+                                arcSharpness: 3,
+                                strokeWidth: 6,
+                                strokeColor: 'rgba(232, 100, 0, 1.0)'
+                            }
+                        },
+                        {
+                            origin: 'USA',
+                            destination: 'FRA',
+                            options: {
+                                strokeWidth: 4,
+                                arcSharpness: 3,
+                                strokeColor: 'rgba(232, 100, 0, 1.0)'
+                            }
+                        },
+                         {
+                            origin: 'USA',
+                            destination: 'CAN',
+                            options: {
+                                strokeWidth: 4,
+                                arcSharpness: 3,
+                                strokeColor: 'rgba(232, 100, 0, 1.0)'
+                            }
+                        },
+                         {
+                            origin: 'USA',
+                            destination: 'NLD',
+                            options: {
+                                strokeWidth: 2,
+                                arcSharpness: 3,
+                                strokeColor: 'rgba(232, 100, 0, 1.0)'
+                            }
+                        },
+                         {
+                            origin: 'CHN',
+                            destination: 'USA',
+                            options: {
+                                strokeWidth: 12,
+                                strokeColor: 'rgba(220, 220, 28, 1.0)'
+                            }
+                        },
+                         {
+                            origin: 'CHN',
+                            destination: 'DEU',
+                            options: {
+                                strokeWidth: 4,
+                                strokeColor: 'rgba(220, 220, 28, 1.0)'
+                            }
+                        },
+                         {
+                            origin: 'CHN',
+                            destination: 'FRA',
+                            options: {
+                                strokeWidth: 2,
+                                strokeColor: 'rgba(220, 220, 28, 1.0)'
+                            }
+                        },
+                         {
+                            origin: 'CHN',
+                            destination: 'GBR',
+                            options: {
+                                strokeWidth: 2,
+                                strokeColor: 'rgba(220, 220, 28, 1.0)'
+                            }
+                        },
+                         {
+                            origin: 'CHN',
+                            destination: 'NLD',
+                            options: {
+                                strokeWidth: 2,
+                                strokeColor: 'rgba(220, 220, 28, 1.0)'
+                            }
+                        },
+                         {
+                            origin: 'RUS',
+                            destination: 'USA',
+                            options: {
+                                strokeWidth: 10,
+                                strokeColor: 'rgba(209, 34, 34, 1.0)'
+                            }
+                        },
+                           {
+                            origin: 'RUS',
+                            destination: 'DEU',
+                            options: {
+                                strokeWidth: 2,
+                                strokeColor: 'rgba(209, 34, 34, 1.0)'
+                            }
+                        },
+                           {
+                            origin: 'RUS',
+                            destination: 'FRA',
+                            options: {
+                                strokeWidth: 2,
+                                strokeColor: 'rgba(209, 34, 34, 1.0)'
+                            }
+                        },
+                           {
+                            origin: 'RUS',
+                            destination: 'JPN',
+                            options: {
+                                strokeWidth: 2,
+                                strokeColor: 'rgba(209, 34, 34, 1.0)'
+                            }
+                        },
+                           {
+                            origin: 'RUS',
+                            destination: 'GBR',
+                            options: {
+                                strokeWidth: 2,
+                                strokeColor: 'rgba(209, 34, 34, 1.0)'
+                            }
+                        },
+                           {
+                            origin: 'DEU',
+                            destination: 'USA',
+                            options: {
+                                strokeWidth: 10,
+                                strokeColor: 'rgba(34, 34, 209, 1.0)'
+                            }
+                        },
+                          {
+                            origin: 'DEU',
+                            destination: 'NLD',
+                            options: {
+                                strokeWidth: 2,
+                                strokeColor: 'rgba(34, 34, 209, 1.0)'
+                            }
+                        },
+                          {
+                            origin: 'DEU',
+                            destination: 'FRA',
+                            options: {
+                                strokeWidth: 2,
+                                strokeColor: 'rgba(34, 34, 209, 1.0)'
+                            }
+                        },
+                          {
+                            origin: 'DEU',
+                            destination: 'GBR',
+                            options: {
+                                strokeWidth: 2,
+                                strokeColor: 'rgba(34, 34, 209, 1.0)'
+                            }
+                        },
+                          {
+                            origin: 'DEU',
+                            destination: 'BRA',
+                            options: {
+                                strokeWidth: 2,
+                                strokeColor: 'rgba(34, 34, 209, 1.0)'
+                            }
+                        }
+                        
+                        ], {
+                            animationSpeed: 2000,
+                            popupOnHover: true
+                        });
+                    }                                 
+               
+            });
+        },
+
+        fills: {
+          defaultFill: '#4DC940',
+          lt50: 'rgba(225,95,229,0.9)',
+        },
+        
+        //highlight the countries that are being featured. 
+         data: {
+           USA: {fillKey: 'lt50' },
+           RUS: {fillKey: 'lt50' },
+           DEU: {fillKey: 'lt50' },
+           CHN: {fillKey: 'lt50' }
+         },
+         geographyConfig: {
+            highlightOnHover: true,
+            highlightFillColor: 'rgba(154, 212, 174, 0.4)',
+            popupTemplate: function(geography, data) { //this function should just return a string
+                    return '<div class="hoverinfo"><strong>' + geography.properties.name + '</strong></div>';
+            }
+        }
+      })   
+     </script>
+</body>
