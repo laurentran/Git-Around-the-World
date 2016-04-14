@@ -1,0 +1,6 @@
+c:\users\latra\documents\visual studio 2015\Projects\BigDataHackDriver\BigDataHackDriver\bin\Debug\BigDataHackDriver.exe.config
+c:\users\latra\documents\visual studio 2015\Projects\BigDataHackDriver\BigDataHackDriver\bin\Debug\BigDataHackDriver.exe
+c:\users\latra\documents\visual studio 2015\Projects\BigDataHackDriver\BigDataHackDriver\bin\Debug\BigDataHackDriver.pdb
+c:\users\latra\documents\visual studio 2015\Projects\BigDataHackDriver\BigDataHackDriver\obj\Debug\BigDataHackDriver.csprojResolveAssemblyReference.cache
+c:\users\latra\documents\visual studio 2015\Projects\BigDataHackDriver\BigDataHackDriver\obj\Debug\BigDataHackDriver.exe
+c:\users\latra\documents\visual studio 2015\Projects\BigDataHackDriver\BigDataHackDriver\obj\Debug\BigDataHackDriver.pdb
